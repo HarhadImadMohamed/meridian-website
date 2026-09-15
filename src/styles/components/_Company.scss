@@ -1,0 +1,74 @@
+.company {
+          border-top: 1px solid var(--border-soft);
+          background: var(--bg-panel);
+        }
+        .company__stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          margin: 32px 0 64px;
+          padding-bottom: 48px;
+          border-bottom: 1px solid var(--border-soft);
+        }
+        .company__stat-value {
+          font-family: var(--font-mono);
+          font-size: 2rem;
+          color: var(--brand-lavender);
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+        .company__stat-value span {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          font-family: var(--font-body);
+        }
+        .company__stat p {
+          max-width: 240px;
+          font-size: 0.88rem;
+        }
+        .company__compare-lede {
+          max-width: 620px;
+          font-size: 0.98rem;
+          margin-bottom: 28px;
+        }
+        .company__table-wrap {
+          overflow-x: auto;
+          border: 1px solid var(--border-soft);
+          border-radius: var(--radius-md);
+        }
+        .company__table {
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 700px;
+        }
+        .company__table th, .company__table td {
+          padding: 15px 18px;
+          text-align: center;
+          border-bottom: 1px solid var(--border-soft);
+          font-size: 0.86rem;
+        }
+        .company__table th {
+          font-family: var(--font-mono);
+          font-size: 0.74rem;
+          color: var(--text-muted);
+          font-weight: 400;
+        }
+        .company__table th.is-us, .company__table td.is-us {
+          background: rgba(159, 47, 255, 0.08);
+        }
+        .company__table th.is-us { color: var(--brand-lavender); }
+        .company__label {
+          text-align: left !important;
+          color: var(--text-secondary);
+        }
+        .company__table tr:last-child td { border-bottom: none; }
+        .dot { font-size: 1.05rem; }
+        .dot--full { color: var(--brand-violet); }
+        .dot--partial { color: var(--brand-lavender); opacity: 0.75; }
+        .dot--none { color: var(--text-muted); opacity: 0.5; }
+
+        @media (max-width: 780px) {
+          .company__stats { grid-template-columns: 1fr; gap: 24px; }
+        }

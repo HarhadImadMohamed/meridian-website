@@ -1,79 +1,139 @@
-# Meridian — Site web (page principale)
+# Meridian — Redesign immersif (v3)
 
-Site vitrine pour Meridian, cabinet de conseil en business piloté par l'IA.
-Construit avec **React** (via Vite) et exécuté avec **Node.js**.
+Site vitrine Meridian, cabinet de conseil en IA business
+(diagnose → simulate → build → measure → optimize). Direction
+artistique inspirée de hugeinc.com : typographie éditoriale géante,
+un système visuel signature "M" à grande échelle piloté par le
+scroll, et un fond qui change de teinte en douceur au fil de la
+page — tout en gardant l'identité, la palette et le contenu réel
+de Meridian.
 
-## Structure du projet
+## Nouveautés de cette passe (v3)
+
+- **Giant M** (`src/components/GiantM.jsx`) : le M n'est plus une
+  petite icône décorative. C'est désormais un environnement visuel
+  géant, fixe en arrière-plan de tout le site, qui traverse 4 états
+  au fil du scroll :
+  `M solide → lignes ouvertes → réseau de nœuds → grille optimisée → retour au M`.
+  Piloté par **GSAP + ScrollTrigger**, sans re-render React (tout
+  passe par des refs pour rester fluide).
+- **`ScrollEnvironment.jsx`** : un seul `ScrollTrigger` sur toute la
+  page pilote à la fois le Giant M et une **couche de fond animée**
+  qui interpole en douceur entre plusieurs teintes de la palette
+  Meridian existante au fil des grands chapitres (hero → process →
+  simulation → solutions → company → CTA).
+- Les fonds de section sont désormais **translucides**
+  (`--bg-panel`, `--bg-card` dans `_tokens.scss`) pour que le Giant M
+  et le fond animé restent visibles *à travers* le contenu — l'effet
+  "environnement continu" demandé, plutôt que des sections opaques
+  empilées.
+- **Contenu restauré** : comparé au code source original fourni,
+  j'ai remis ce qui avait été coupé par erreur lors de la première
+  passe — la vraie liste des industries (Startups, SaaS, Finance,
+  Real estate, etc.), la note "souvent pris pour une agence
+  e-commerce", la citation originale du hero, et la citation sur la
+  simulation.
+- **SCSS séparé du JSX**, comme demandé — voir la structure plus bas.
+
+### Limites assumées (transparence)
+
+Vu l'ampleur de la demande, certains points du brief ont été
+simplifiés pour rester dans un projet livrable et maintenable :
+
+- Le Giant M anime **4 états** (pas 7) — le principe de
+  transformation continue est là, mais avec moins de paliers.
+  Facile à étendre : `KEYFRAMES` et les groupes SVG dans
+  `GiantM.jsx` sont conçus pour qu'on en ajoute.
+- Je n'ai pas construit un visuel bespoke unique pour *chaque*
+  chapitre (Diagnose/Simulate/Build/Measure/Optimize ont chacun
+  leur propre visuel dans `Process.jsx`, mais Industries/Solutions
+  restent typographiques plutôt qu'illustrés individuellement).
+- Palette : le brief mentionne crème / émeraude / laiton, mais le
+  code fourni utilise en réalité violet / lavande. J'ai gardé la
+  palette **réellement présente dans le code**, et le fond animé
+  interpole entre des teintes dérivées de celle-ci
+  (`--scroll-stop-1` à `6` dans `_tokens.scss`). Dites-moi si vous
+  voulez vraiment basculer vers crème/émeraude/laiton.
+- Aucune information investisseur / TAM / SAM séparée n'a été
+  ajoutée : le projet source ne contenait pas ce contenu (seule la
+  FAQ mentionne le modèle tarifaire, conservée telle quelle). Je n'ai
+  rien inventé pour ne pas créer de fausses informations business.
+
+## Structure
 
 ```
 meridian/
-├── index.html                # Point d'entrée HTML, chargement des polices
-├── package.json              # Dépendances npm (React, Vite)
-├── vite.config.js            # Configuration du serveur de développement
+├── index.html
+├── package.json
+├── vite.config.js
 └── src/
-    ├── main.jsx               # Point d'entrée React
-    ├── App.jsx                # Assemble toutes les sections de la page
-    ├── index.css              # ⭐ Fichier central : couleurs, polices, styles globaux
+    ├── main.jsx
+    ├── App.jsx
+    ├── lib/
+    │   └── gsap.js                 # GSAP + ScrollTrigger, enregistré une fois
+    ├── styles/
+    │   ├── main.scss               # point d'entrée, importe tout le reste
+    │   ├── _tokens.scss            # ⭐ police + couleurs principales centralisées
+    │   ├── _base.scss              # reset + classes utilitaires (.container, .btn...)
+    │   ├── _environment.scss       # styles du fond animé + du Giant M
+    │   └── components/
+    │       └── _NomDuComposant.scss   # un fichier SCSS par composant JSX
     └── components/
-        ├── Header.jsx          # Barre de navigation fixe
-        ├── Hero.jsx            # Section d'accueil + visuel animé
-        ├── Stats.jsx           # Bandeau de statistiques
-        ├── Services.jsx        # "What we do" — grille des services
-        ├── Process.jsx         # "How it works" — timeline en 7 étapes
-        ├── Technology.jsx      # Plateforme de simulation
-        ├── WhyUs.jsx           # Onglets interactifs "Why this works"
-        ├── Industries.jsx      # Secteurs servis
-        ├── Competitive.jsx     # Tableau comparatif concurrentiel
-        ├── FAQ.jsx             # Accordéon de questions fréquentes
-        ├── CTAFooter.jsx       # Appel à l'action final + formulaire
-        └── Footer.jsx          # Pied de page
+        ├── ScrollEnvironment.jsx   # pilote le Giant M + le fond animé
+        ├── GiantM.jsx              # ⭐ le système visuel "M" à grande échelle
+        ├── MotifM.jsx              # petit motif M (accents dans Work / Footer)
+        ├── Header.jsx
+        ├── Hero.jsx
+        ├── ProblemStatement.jsx
+        ├── Process.jsx
+        ├── SimulationPlatform.jsx
+        ├── Solutions.jsx
+        ├── Work.jsx
+        ├── WhyUs.jsx
+        ├── Industries.jsx
+        ├── Company.jsx             # stats + comparatif concurrentiel
+        ├── FAQ.jsx
+        ├── CTAFooter.jsx
+        └── Footer.jsx
 ```
 
-## Couleurs et polices — tout est centralisé
+Chaque composant JSX ne contient plus que du JSX/logique — son style
+vit dans `src/styles/components/_NomDuComposant.scss`, importé une
+fois dans `main.scss`. Les classes restent globales (pas de CSS
+Modules), donc les noms de classes n'ont pas changé.
 
-**Toutes** les couleurs et polices du site sont définies comme variables CSS
-en haut du fichier `src/index.css`, dans le bloc `:root`. C'est le seul
-endroit à modifier pour changer l'identité visuelle de tout le site :
-
-```css
---brand-lavender: #CAA9FE;
---brand-violet:   #9F2FFF;
---brand-deep:     #3E2677;
-
---font-display: 'Space Grotesk', ...;   /* titres */
---font-body:    'IBM Plex Sans', ...;   /* texte courant */
---font-mono:    'IBM Plex Mono', ...;   /* chiffres, labels techniques */
-```
-
-Chaque composant réutilise ces variables (`var(--brand-violet)`, etc.) —
-aucune couleur ou police n'est codée en dur ailleurs dans le projet.
-
-## Installation et lancement
+## Installation et lancement (VS Code)
 
 Prérequis : Node.js 18+ et npm.
 
+1. Dézippez le projet, puis ouvrez le dossier `meridian/` dans VS Code.
+2. Terminal VS Code (`Terminal > New Terminal`).
+3. Installez les dépendances (React, Framer Motion, **GSAP**, **Sass**) :
+   ```bash
+   npm install
+   ```
+4. Lancez le serveur de développement :
+   ```bash
+   npm run dev
+   ```
+5. Ouvrez l'URL affichée (par défaut `http://localhost:5173`).
+
+Autres commandes :
 ```bash
-# 1. Installer les dépendances
-npm install
-
-# 2. Lancer le serveur de développement
-npm run dev
-# → ouvre http://localhost:5273
-
-# 3. Construire la version de production
-npm run build
-# → génère le dossier dist/
-
-# 4. Prévisualiser la version de production
-npm run preview
+npm run build     # build de production dans dist/
+npm run preview   # prévisualise le build de production
 ```
 
-## Notes
+## Personnalisation rapide
 
-- Ceci couvre la **page principale** uniquement, comme demandé.
-- La structure s'inspire de sharplink.com : hero plein écran avec visuel animé,
-  bandeau de statistiques, sections numérotées pour les processus séquentiels,
-  bloc d'onglets interactif, tableau comparatif, FAQ en accordéon, et un bloc
-  d'appel à l'action final avant le pied de page.
-- Le site est entièrement responsive (mobile, tablette, desktop) et respecte
-  `prefers-reduced-motion`.
+- **Couleurs / polices / points de couleur du fond animé** : tout est
+  dans `src/styles/_tokens.scss`.
+- **Giant M** : `src/components/GiantM.jsx`. `KEYFRAMES` définit à
+  quel pourcentage du scroll chaque état domine ; les tableaux
+  `VERTICES` / `GRID` / `NETWORK` définissent la géométrie de chaque
+  état.
+- **Rythme du fond animé** : `COLOR_STOPS` dans
+  `src/components/ScrollEnvironment.jsx`.
+- Le site respecte `prefers-reduced-motion` : le Giant M et les
+  animations de scroll se figent proprement pour les utilisateurs qui
+  l'ont demandé dans leur système.

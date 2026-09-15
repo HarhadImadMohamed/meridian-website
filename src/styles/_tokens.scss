@@ -1,0 +1,61 @@
+/* ============================================================
+   MERIDIAN — DESIGN TOKENS (centralisé)
+   Fichier unique de référence pour :
+     - la palette de marque (couleurs principales)
+     - les polices
+     - l'échelle typographique
+   Tout composant SCSS de src/styles/components/ consomme ces
+   variables CSS — ne jamais redéfinir une couleur en dur ailleurs.
+   ============================================================ */
+:root {
+  /* --- Palette de marque (source de vérité, ne pas dupliquer) --- */
+  --brand-lavender: #CAA9FE;
+  --brand-violet: #9F2FFF;
+  --brand-deep: #3E2677;
+
+  /* --- Fond : couches translucides pour laisser le "Giant M" et le
+     dégradé d'arrière-plan transparaître derrière le contenu --- */
+  --bg-void: #0D0817;                        /* couleur de base solide (fallback / scroll-bg) */
+  --bg-panel: rgba(22, 13, 44, 0.72);         /* fond de section, translucide */
+  --bg-panel-alt: rgba(30, 18, 64, 0.72);     /* variante de fond de section */
+  --bg-card: rgba(13, 8, 23, 0.88);           /* cartes/panneaux nécessitant plus de lisibilité */
+
+  --border-soft: rgba(202, 169, 254, 0.16);
+  --border-strong: rgba(202, 169, 254, 0.32);
+
+  --text-primary: #F5F1FF;
+  --text-secondary: #C6B8E8;
+  --text-muted: #8D7DB5;
+  --text-on-accent: #0D0817;
+
+  /* --- Dégradés de marque --- */
+  --gradient-hero: radial-gradient(120% 120% at 15% 0%, rgba(159, 47, 255, 0.36) 0%, rgba(62, 38, 119, 0.4) 42%, rgba(13, 8, 23, 0.55) 78%);
+  --gradient-accent: linear-gradient(135deg, var(--brand-violet) 0%, var(--brand-deep) 100%);
+  --gradient-line: linear-gradient(180deg, var(--brand-violet) 0%, rgba(159, 47, 255, 0) 100%);
+
+  /* --- Points de couleur utilisés par le fond animé au scroll
+     (ScrollEnvironment.jsx interpole entre ces teintes) --- */
+  --scroll-stop-1: #0D0817;  /* hero */
+  --scroll-stop-2: #160D2C;  /* problem / process */
+  --scroll-stop-3: #1E1240;  /* simulation */
+  --scroll-stop-4: #150B29;  /* solutions / work */
+  --scroll-stop-5: #0D0817;  /* company / faq */
+  --scroll-stop-6: #1B0F38;  /* cta approach */
+
+  /* --- Typographie --- */
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* --- Échelle typographique éditoriale --- */
+  --fs-display: clamp(3rem, 8.2vw, 8.5rem);
+  --fs-hero: clamp(2.75rem, 5.6vw, 5.4rem);
+  --fs-h2: clamp(2.1rem, 4vw, 3.4rem);
+  --fs-h3: clamp(1.3rem, 1.9vw, 1.7rem);
+  --fs-body: 1.05rem;
+  --fs-small: 0.9rem;
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --container-w: 1240px;
+}

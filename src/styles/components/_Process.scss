@@ -1,0 +1,86 @@
+.process {
+          border-top: 1px solid var(--border-soft);
+        }
+        .process__layout {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 64px;
+          align-items: start;
+        }
+        .process__list {
+          position: relative;
+          margin-left: 4px;
+          border-left: 1px solid var(--border-strong);
+        }
+        .process__item {
+          display: grid;
+          grid-template-columns: 90px 1fr;
+          gap: 28px;
+          padding: 30px 0 30px 32px;
+          position: relative;
+        }
+        .process__item::before {
+          content: '';
+          position: absolute;
+          left: -5px;
+          top: 36px;
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background: var(--brand-violet);
+          box-shadow: 0 0 0 5px var(--bg-void), 0 0 12px 2px rgba(159,47,255,0.6);
+        }
+        .process__num {
+          font-family: var(--font-mono);
+          font-size: 1.6rem;
+          color: var(--text-muted);
+        }
+        .process__body h3 {
+          font-size: 1.3rem;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+        }
+        .process__body p {
+          max-width: 520px;
+          font-size: 0.98rem;
+        }
+        .process__visual {
+          position: sticky;
+          top: 120px;
+        }
+        .process__visual-inner {
+          position: relative;
+          aspect-ratio: 1 / 1;
+          border: 1px solid var(--border-soft);
+          border-radius: var(--radius-md);
+          background: var(--bg-card);
+          overflow: hidden;
+        }
+        .process__node {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          margin-left: -5px;
+          margin-top: -5px;
+          border-radius: 50%;
+          background: radial-gradient(circle, #F5F1FF, var(--brand-violet));
+        }
+        .process__label {
+          position: absolute;
+          font-family: var(--font-mono);
+          font-size: 0.68rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
+        .process__label--from { top: 14px; left: 14px; }
+        .process__label--to { bottom: 14px; right: 14px; color: var(--brand-lavender); }
+
+        @media (max-width: 960px) {
+          .process__layout { grid-template-columns: 1fr; }
+          .process__visual { position: relative; top: 0; max-width: 420px; }
+        }
+        @media (max-width: 680px) {
+          .process__item { grid-template-columns: 1fr; gap: 10px; padding-left: 24px; }
+          .process__num { font-size: 1.2rem; }
+        }
