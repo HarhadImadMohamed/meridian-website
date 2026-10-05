@@ -8,7 +8,7 @@ export default function Industries() {
     <section id="industries" className="section--tight industries">
       <div className="container industries__inner">
         <div className="industries__head">
-          <div className="section-kicker">Where we apply it</div>
+          <h2 className="industries__h2">Industries we serve</h2>
           <p className="industries__note">
             We&rsquo;re often mistaken for an e-commerce-only shop because of
             where operational inefficiency is easiest to see. We&rsquo;re

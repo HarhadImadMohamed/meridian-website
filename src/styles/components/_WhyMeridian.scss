@@ -1,0 +1,40 @@
+.whymeridian__h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  margin-bottom: 32px;
+}
+.whymeridian__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 40px;
+  max-width: 880px;
+}
+.whymeridian__list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.whymeridian__check {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand-violet);
+  color: #fff;
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+.whymeridian__list h3 {
+  font-size: 0.98rem;
+  margin-bottom: 4px;
+}
+.whymeridian__list p {
+  font-size: 0.88rem;
+}
+
+@media (max-width: 720px) {
+  .whymeridian__list { grid-template-columns: 1fr; }
+}

@@ -1,22 +1,23 @@
 /* ============================================================
    MERIDIAN — SCSS ENTRY POINT
-   Import order matters: tokens → base → environment → components.
+   Import order matters: tokens → base → components.
    ============================================================ */
 
 @import './tokens';
 @import './base';
-@import './environment';
 
 @import './components/Header';
 @import './components/Hero';
-@import './components/ProblemStatement';
+@import './components/WhatWeDo';
+@import './components/HowWeWork';
+@import './components/WhyMeridian';
+@import './components/OurApproach';
 @import './components/Process';
 @import './components/SimulationPlatform';
-@import './components/Solutions';
 @import './components/Work';
-@import './components/WhyUs';
 @import './components/Industries';
 @import './components/Company';
+@import './components/CompanyPage';
 @import './components/FAQ';
 @import './components/CTAFooter';
 @import './components/Footer';

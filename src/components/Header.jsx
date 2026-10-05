@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const NAV_LINKS = [
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Approach', href: '#approach' },
-  { label: 'Work', href: '#work' },
-  { label: 'Industries', href: '#industries' },
-  { label: 'Company', href: '#company' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Services', href: '/#services' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'Industries', href: '/#industries' },
+  { label: 'Case studies', href: '/#work' },
+  { label: 'Company', href: '/company' },
 ]
 
 export default function Header() {
@@ -22,24 +22,24 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="container header__inner">
-        <a href="#top" className="header__logo">
+        <Link to="/" className="header__logo">
           <span className="header__mark" aria-hidden="true" />
           Meridian
-        </a>
+        </Link>
 
         <nav className="header__nav">
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
+                <Link to={link.href}>{link.label}</Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        <a href="#contact" className="btn btn-primary header__cta">
-          Let&rsquo;s talk
-        </a>
+        <Link to="/#cta" className="btn btn-primary header__cta">
+          Book an appointment
+        </Link>
 
         <button
           className="header__toggle"
@@ -58,15 +58,15 @@ export default function Header() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href} onClick={() => setOpen(false)}>
+                <Link to={link.href} onClick={() => setOpen(false)}>
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
-              <a href="#contact" className="btn btn-primary" onClick={() => setOpen(false)}>
-                Let&rsquo;s talk
-              </a>
+              <Link to="/#cta" className="btn btn-primary" onClick={() => setOpen(false)}>
+                Book an appointment
+              </Link>
             </li>
           </ul>
         </div>

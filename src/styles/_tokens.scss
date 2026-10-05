@@ -13,12 +13,11 @@
   --brand-violet: #9F2FFF;
   --brand-deep: #3E2677;
 
-  /* --- Fond : couches translucides pour laisser le "Giant M" et le
-     dégradé d'arrière-plan transparaître derrière le contenu --- */
-  --bg-void: #0D0817;                        /* couleur de base solide (fallback / scroll-bg) */
-  --bg-panel: rgba(22, 13, 44, 0.72);         /* fond de section, translucide */
-  --bg-panel-alt: rgba(30, 18, 64, 0.72);     /* variante de fond de section */
-  --bg-card: rgba(13, 8, 23, 0.88);           /* cartes/panneaux nécessitant plus de lisibilité */
+  /* --- Fond --- */
+  --bg-void: #0D0817;
+  --bg-panel: #160D2C;
+  --bg-panel-alt: #1E1240;
+  --bg-card: #0D0817;
 
   --border-soft: rgba(202, 169, 254, 0.16);
   --border-strong: rgba(202, 169, 254, 0.32);
@@ -29,18 +28,8 @@
   --text-on-accent: #0D0817;
 
   /* --- Dégradés de marque --- */
-  --gradient-hero: radial-gradient(120% 120% at 15% 0%, rgba(159, 47, 255, 0.36) 0%, rgba(62, 38, 119, 0.4) 42%, rgba(13, 8, 23, 0.55) 78%);
   --gradient-accent: linear-gradient(135deg, var(--brand-violet) 0%, var(--brand-deep) 100%);
   --gradient-line: linear-gradient(180deg, var(--brand-violet) 0%, rgba(159, 47, 255, 0) 100%);
-
-  /* --- Points de couleur utilisés par le fond animé au scroll
-     (ScrollEnvironment.jsx interpole entre ces teintes) --- */
-  --scroll-stop-1: #0D0817;  /* hero */
-  --scroll-stop-2: #160D2C;  /* problem / process */
-  --scroll-stop-3: #1E1240;  /* simulation */
-  --scroll-stop-4: #150B29;  /* solutions / work */
-  --scroll-stop-5: #0D0817;  /* company / faq */
-  --scroll-stop-6: #1B0F38;  /* cta approach */
 
   /* --- Typographie --- */
   --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;

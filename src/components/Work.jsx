@@ -3,47 +3,46 @@ import MotifM from './MotifM.jsx'
 
 const PROJECTS = [
   {
-    tag: 'Meridian simulation — concept',
-    title: 'Modeling a financial-ops overhaul before touching a single invoice.',
-    text: 'A conceptual walk-through of how the simulation environment evaluates a receivables and reconciliation rebuild across three scenarios before implementation begins.',
+    tag: 'Illustrative example — e-commerce',
+    title: 'Automation of billing, reconciliation and collections workflows.',
+    text: 'How the simulation environment would evaluate a receivables rebuild across multiple scenarios before implementation begins.',
   },
   {
-    tag: 'Prototype — AI operations',
+    tag: 'Illustrative example — AI operations',
     title: 'An agent layer that watches a workflow instead of replacing it.',
-    text: 'A demonstration of how purpose-built agents sit alongside existing tools, flagging exceptions and automating the repetitive parts of a process.',
+    text: 'Purpose-built agents sitting alongside existing tools, flagging exceptions and automating repetitive steps.',
   },
   {
-    tag: 'Prototype — decision intelligence',
+    tag: 'Illustrative example — decision intelligence',
     title: 'Turning scattered operational data into one live view of risk.',
-    text: 'A conceptual dashboard illustrating how disparate data sources are unified into a single, continuously updated picture of exposure.',
+    text: 'Disparate data sources unified into a single, continuously updated picture of exposure.',
   },
 ]
 
 export default function Work() {
   return (
-    <section id="work" className="section work">
+    <section id="work" className="section--tight work">
       <div className="container">
-        <div className="section-head">
-          <div className="section-kicker">Selected work</div>
-          <h2>Built for real business.</h2>
-          <p>
-            These are conceptual demonstrations of Meridian&rsquo;s approach —
-            not client results. We label them as such, deliberately.
-          </p>
-        </div>
+        <h2 className="work__h2">Case studies &amp; examples</h2>
+        <p className="work__intro">
+          Real client case studies will be published here as they become
+          available. Until then, these are clearly labeled illustrative
+          examples of how Meridian&rsquo;s approach applies in practice —
+          not client results.
+        </p>
 
         <div className="work__list">
           {PROJECTS.map((p, i) => (
             <motion.article
               className="work__item"
               key={p.title}
-              initial={{ opacity: 0, y: 26 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
             >
               <div className="work__visual">
-                <MotifM mode="network" size={120} />
+                <MotifM mode="network" size={80} />
               </div>
               <div className="work__body">
                 <span className="work__tag">{p.tag}</span>

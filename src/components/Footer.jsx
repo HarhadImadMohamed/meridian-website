@@ -1,31 +1,30 @@
+import { Link } from 'react-router-dom'
 import MotifM from './MotifM.jsx'
 
 const COLUMNS = [
   {
+    title: 'Site',
+    links: [
+      { label: 'Services', href: '/#services' },
+      { label: 'How it works', href: '/#how-it-works' },
+      { label: 'Industries', href: '/#industries' },
+      { label: 'Case studies', href: '/#work' },
+    ],
+  },
+  {
     title: 'Company',
     links: [
-      { label: 'Solutions', href: '#solutions' },
-      { label: 'Approach', href: '#approach' },
-      { label: 'Work', href: '#work' },
-      { label: 'Company', href: '#company' },
+      { label: 'Our approach', href: '/company#approach-detail' },
+      { label: 'Simulation platform', href: '/company#simulation' },
+      { label: 'Why Meridian', href: '/company#company' },
+      { label: 'FAQ', href: '/company#faq' },
     ],
   },
   {
-    title: 'Solutions',
+    title: 'Contact',
     links: [
-      { label: 'AI strategy', href: '#solutions' },
-      { label: 'Business automation', href: '#solutions' },
-      { label: 'AI systems', href: '#solutions' },
-      { label: 'Simulation', href: '#simulation' },
-      { label: 'AI operations', href: '#solutions' },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Work', href: '#work' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Book an appointment', href: '/#cta' },
+      { label: 'Email Meridian', href: 'mailto:hello@meridian.ai' },
     ],
   },
 ]
@@ -35,11 +34,11 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <a href="#top" className="footer__logo">
+          <Link to="/" className="footer__logo">
             <span className="footer__mark" aria-hidden="true" />
             Meridian
-          </a>
-          <p>AI consulting and engineering, proven before it&rsquo;s built.</p>
+          </Link>
+          <p>AI consulting and business automation, proven before it&rsquo;s built.</p>
           <div className="footer__motif">
             <MotifM mode="network" size={90} />
           </div>
@@ -51,7 +50,11 @@ export default function Footer() {
               <h4>{col.title}</h4>
               <ul>
                 {col.links.map((l) => (
-                  <li key={l.label}><a href={l.href}>{l.label}</a></li>
+                  <li key={l.label}>
+                    {l.href.startsWith('mailto:')
+                      ? <a href={l.href}>{l.label}</a>
+                      : <Link to={l.href}>{l.label}</Link>}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -62,8 +65,8 @@ export default function Footer() {
       <div className="container footer__bottom">
         <p>&copy; {new Date().getFullYear()} Meridian. All rights reserved.</p>
         <div className="footer__legal">
-          <a href="#top">Privacy policy</a>
-          <a href="#top">Terms of use</a>
+          <Link to="/">Privacy policy</Link>
+          <Link to="/">Terms of use</Link>
         </div>
       </div>
     </footer>

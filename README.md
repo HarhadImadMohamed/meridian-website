@@ -1,114 +1,100 @@
-# Meridian — Redesign immersif (v3)
+# Meridian — Homepage simplifiée, SEO-first (v4)
 
-Site vitrine Meridian, cabinet de conseil en IA business
-(diagnose → simulate → build → measure → optimize). Direction
-artistique inspirée de hugeinc.com : typographie éditoriale géante,
-un système visuel signature "M" à grande échelle piloté par le
-scroll, et un fond qui change de teinte en douceur au fil de la
-page — tout en gardant l'identité, la palette et le contenu réel
-de Meridian.
+Cette passe recentre le site autour de la **clarté et de la conversion**
+plutôt que du spectacle visuel : homepage courte et directe, workflow de
+réservation en 5 étapes mis en avant, informations détaillées (approche
+complète, plateforme de simulation, comparatif concurrentiel, FAQ)
+déplacées sur une page secondaire `/company`. Identité, palette et contenu
+Meridian conservés.
 
-## Nouveautés de cette passe (v3)
+## Ce qui a changé dans cette passe (v4)
 
-- **Giant M** (`src/components/GiantM.jsx`) : le M n'est plus une
-  petite icône décorative. C'est désormais un environnement visuel
-  géant, fixe en arrière-plan de tout le site, qui traverse 4 états
-  au fil du scroll :
-  `M solide → lignes ouvertes → réseau de nœuds → grille optimisée → retour au M`.
-  Piloté par **GSAP + ScrollTrigger**, sans re-render React (tout
-  passe par des refs pour rester fluide).
-- **`ScrollEnvironment.jsx`** : un seul `ScrollTrigger` sur toute la
-  page pilote à la fois le Giant M et une **couche de fond animée**
-  qui interpole en douceur entre plusieurs teintes de la palette
-  Meridian existante au fil des grands chapitres (hero → process →
-  simulation → solutions → company → CTA).
-- Les fonds de section sont désormais **translucides**
-  (`--bg-panel`, `--bg-card` dans `_tokens.scss`) pour que le Giant M
-  et le fond animé restent visibles *à travers* le contenu — l'effet
-  "environnement continu" demandé, plutôt que des sections opaques
-  empilées.
-- **Contenu restauré** : comparé au code source original fourni,
-  j'ai remis ce qui avait été coupé par erreur lors de la première
-  passe — la vraie liste des industries (Startups, SaaS, Finance,
-  Real estate, etc.), la note "souvent pris pour une agence
-  e-commerce", la citation originale du hero, et la citation sur la
-  simulation.
-- **SCSS séparé du JSX**, comme demandé — voir la structure plus bas.
+- **Homepage radicalement simplifiée** : plus de grand M en arrière-plan,
+  plus de titres éditoriaux géants, plus de longs paragraphes. Un visiteur
+  doit comprendre ce qu'est Meridian en 10–15 secondes.
+- **Hero court** : "AI consulting & business automation" + une phrase +
+  deux CTA ("Book an appointment" / "Explore our services"), avec un petit
+  motif M discret (plus de système géant piloté par le scroll).
+- **Nouvelle section "How we work"** (`HowWeWork.jsx`) : le workflow de
+  réservation en 5 étapes demandé — Appointment Booking → Solution Design
+  → Prototype Presentation → Specs Validation & Contract → Final Delivery.
+  C'est distinct de la méthodologie Diagnose/Simulate/Build/Measure/
+  Optimize (qui reste, en version courte, dans "Our Approach").
+- **Nouvelle section "What we do"** (`WhatWeDo.jsx`) : grille compacte de
+  6 services, une ligne de description chacun.
+- **"Why Meridian"** simplifié en liste à coches (`WhyMeridian.jsx`).
+- **Page secondaire `/company`** (`pages/CompanyPage.jsx`) : contient tout
+  ce qui ne doit pas dominer la homepage — le détail complet du processus
+  (`Process.jsx`), la plateforme de simulation (`SimulationPlatform.jsx`),
+  les statistiques et le comparatif concurrentiel (`Company.jsx`), et la
+  FAQ. Rien n'a été supprimé, uniquement déplacé.
+- **Routing** ajouté via `react-router-dom` (`/` et `/company`).
+- **SEO** : `index.html` a un nouveau titre, une meta description ciblée,
+  une balise canonique, des balises Open Graph, et un bloc JSON-LD
+  `ProfessionalService` décrivant Meridian. Chaque page a un seul `<h1>`
+  et des `<h2>` logiques.
+- Les études de cas sont désormais explicitement étiquetées
+  **"Illustrative example"** — jamais présentées comme des résultats
+  clients réels.
 
 ### Limites assumées (transparence)
 
-Vu l'ampleur de la demande, certains points du brief ont été
-simplifiés pour rester dans un projet livrable et maintenable :
-
-- Le Giant M anime **4 états** (pas 7) — le principe de
-  transformation continue est là, mais avec moins de paliers.
-  Facile à étendre : `KEYFRAMES` et les groupes SVG dans
-  `GiantM.jsx` sont conçus pour qu'on en ajoute.
-- Je n'ai pas construit un visuel bespoke unique pour *chaque*
-  chapitre (Diagnose/Simulate/Build/Measure/Optimize ont chacun
-  leur propre visuel dans `Process.jsx`, mais Industries/Solutions
-  restent typographiques plutôt qu'illustrés individuellement).
-- Palette : le brief mentionne crème / émeraude / laiton, mais le
-  code fourni utilise en réalité violet / lavande. J'ai gardé la
-  palette **réellement présente dans le code**, et le fond animé
-  interpole entre des teintes dérivées de celle-ci
-  (`--scroll-stop-1` à `6` dans `_tokens.scss`). Dites-moi si vous
-  voulez vraiment basculer vers crème/émeraude/laiton.
-- Aucune information investisseur / TAM / SAM séparée n'a été
-  ajoutée : le projet source ne contenait pas ce contenu (seule la
-  FAQ mentionne le modèle tarifaire, conservée telle quelle). Je n'ai
-  rien inventé pour ne pas créer de fausses informations business.
+- Je n'ai pas inventé de contenu investisseur/TAM/SAM sur `/company` :
+  le projet source ne contenait pas ce contenu à l'origine (seule la FAQ
+  mentionne le modèle tarifaire). Si vous avez ce contenu ailleurs
+  (le site Vercel d'origine, un doc), partagez-le et je l'intègre sur
+  `/company`.
+- Palette : toujours violet/lavande (celle réellement présente dans le
+  code), pas crème/émeraude/laiton comme mentionné dans le brief — même
+  remarque que les passes précédentes.
+- `/company` reste une page unique regroupant "Approche détaillée +
+  Simulation + Entreprise + FAQ" plutôt que 4 pages séparées, pour rester
+  simple à maintenir. Facile à scinder plus tard si besoin.
 
 ## Structure
 
 ```
 meridian/
-├── index.html
+├── index.html                      # ⭐ SEO : titre, meta description, JSON-LD
 ├── package.json
 ├── vite.config.js
 └── src/
-    ├── main.jsx
-    ├── App.jsx
-    ├── lib/
-    │   └── gsap.js                 # GSAP + ScrollTrigger, enregistré une fois
+    ├── main.jsx                    # BrowserRouter
+    ├── App.jsx                     # Routes "/" et "/company"
+    ├── pages/
+    │   ├── HomePage.jsx            # homepage simplifiée
+    │   └── CompanyPage.jsx         # infos détaillées (approche, simulation, stats, FAQ)
     ├── styles/
-    │   ├── main.scss               # point d'entrée, importe tout le reste
-    │   ├── _tokens.scss            # ⭐ police + couleurs principales centralisées
-    │   ├── _base.scss              # reset + classes utilitaires (.container, .btn...)
-    │   ├── _environment.scss       # styles du fond animé + du Giant M
+    │   ├── main.scss
+    │   ├── _tokens.scss            # police + couleurs principales centralisées
+    │   ├── _base.scss
     │   └── components/
-    │       └── _NomDuComposant.scss   # un fichier SCSS par composant JSX
+    │       └── _NomDuComposant.scss
     └── components/
-        ├── ScrollEnvironment.jsx   # pilote le Giant M + le fond animé
-        ├── GiantM.jsx              # ⭐ le système visuel "M" à grande échelle
-        ├── MotifM.jsx              # petit motif M (accents dans Work / Footer)
-        ├── Header.jsx
-        ├── Hero.jsx
-        ├── ProblemStatement.jsx
-        ├── Process.jsx
-        ├── SimulationPlatform.jsx
-        ├── Solutions.jsx
-        ├── Work.jsx
-        ├── WhyUs.jsx
+        ├── Header.jsx              # nav : Services / How it works / Industries / Case studies / Company
+        ├── Hero.jsx                # version courte
+        ├── WhatWeDo.jsx            # ⭐ nouveau — grille de services compacte
+        ├── HowWeWork.jsx           # ⭐ nouveau — workflow de réservation en 5 étapes
+        ├── WhyMeridian.jsx         # ⭐ nouveau — liste à coches
+        ├── OurApproach.jsx         # ⭐ nouveau — teaser court, renvoie vers /company
+        ├── Process.jsx             # méthodologie détaillée (sur /company)
+        ├── SimulationPlatform.jsx  # plateforme de simulation détaillée (sur /company)
         ├── Industries.jsx
-        ├── Company.jsx             # stats + comparatif concurrentiel
-        ├── FAQ.jsx
+        ├── Work.jsx                # études de cas / exemples illustratifs
+        ├── Company.jsx             # stats + comparatif concurrentiel (sur /company)
+        ├── FAQ.jsx                 # (sur /company)
         ├── CTAFooter.jsx
-        └── Footer.jsx
+        ├── Footer.jsx
+        └── MotifM.jsx              # petit motif M, utilisé avec parcimonie
 ```
-
-Chaque composant JSX ne contient plus que du JSX/logique — son style
-vit dans `src/styles/components/_NomDuComposant.scss`, importé une
-fois dans `main.scss`. Les classes restent globales (pas de CSS
-Modules), donc les noms de classes n'ont pas changé.
 
 ## Installation et lancement (VS Code)
 
 Prérequis : Node.js 18+ et npm.
 
-1. Dézippez le projet, puis ouvrez le dossier `meridian/` dans VS Code.
+1. Dézippez le projet, ouvrez le dossier `meridian/` dans VS Code.
 2. Terminal VS Code (`Terminal > New Terminal`).
-3. Installez les dépendances (React, Framer Motion, **GSAP**, **Sass**) :
+3. Installez les dépendances (React, Framer Motion, **React Router**, Sass) :
    ```bash
    npm install
    ```
@@ -116,7 +102,8 @@ Prérequis : Node.js 18+ et npm.
    ```bash
    npm run dev
    ```
-5. Ouvrez l'URL affichée (par défaut `http://localhost:5173`).
+5. Ouvrez l'URL affichée (par défaut `http://localhost:5173`). La page
+   `/company` est accessible via le lien "Company" dans la navigation.
 
 Autres commandes :
 ```bash
@@ -126,14 +113,7 @@ npm run preview   # prévisualise le build de production
 
 ## Personnalisation rapide
 
-- **Couleurs / polices / points de couleur du fond animé** : tout est
-  dans `src/styles/_tokens.scss`.
-- **Giant M** : `src/components/GiantM.jsx`. `KEYFRAMES` définit à
-  quel pourcentage du scroll chaque état domine ; les tableaux
-  `VERTICES` / `GRID` / `NETWORK` définissent la géométrie de chaque
-  état.
-- **Rythme du fond animé** : `COLOR_STOPS` dans
-  `src/components/ScrollEnvironment.jsx`.
-- Le site respecte `prefers-reduced-motion` : le Giant M et les
-  animations de scroll se figent proprement pour les utilisateurs qui
-  l'ont demandé dans leur système.
+- **Couleurs / polices** : `src/styles/_tokens.scss`.
+- **Workflow de réservation** : tableau `STEPS` dans `src/components/HowWeWork.jsx`.
+- **Services affichés en homepage** : tableau `ITEMS` dans `src/components/WhatWeDo.jsx`.
+- **Contenu de la page Company** : `src/pages/CompanyPage.jsx`.
